@@ -2,7 +2,6 @@ import { FastifyInstance } from "fastify";
 import { ContactUseCase } from "../usecases/contact.usecase";
 import { ContactCreate, type Contact } from "../interfaces/contacts.interface";
 import { authMiddleware } from "../middlewares/auth.middleware";
-
 export async function contactsRoutes(fastify: FastifyInstance) {
   const contactUseCase = new ContactUseCase();
   fastify.addHook('preHandler', authMiddleware)
