@@ -7,14 +7,14 @@ export async function contactsRoutes(fastify: FastifyInstance) {
   fastify.addHook('preHandler', authMiddleware)
   fastify.post<{ Body: ContactCreate }>('/', async (request, reply) => {
     const { name, email, phone } = request.body;
-    const emailUser = request.headers['email']
+    const  emailUser  = request.headers['email']
     try {
-      const data = await contactUseCase.create({
-        email,
-        name,
-        phone,
-        userEmail: typeof emailUser === 'string' ? emailUser : ''
-      })
+      const data = await contactUseCase.create({ 
+        email, 
+        name, 
+        phone, 
+        userEmail: emailUser
+       })
       return reply.send(data);
     } catch (error) {
       reply.send(error)
@@ -22,21 +22,21 @@ export async function contactsRoutes(fastify: FastifyInstance) {
   });
   fastify.get('/', async (req, reply) => {
     const emailUser = req.headers['email'];
-    try {
-      const data = await contactUseCase.listAllContacts(typeof emailUser === 'string' ? emailUser : '');
+    try{
+      const data = await contactUseCase.listAllContacts(emailUser);
       return reply.send(data);
-    } catch (error) {
+    } catch (error){
       reply.send(error)
     }
   })
-  fastify.put<{ Body: Contact, Params: { id: string } }>('/:id', async (req, reply) => {
+  fastify.put<{Body: Contact, Params: {id: string}}>('/:id', async (req, reply) => {
     const { id } = req.params
     const { name, email, phone } = req.body;
     try {
       const data = await contactUseCase.updateContact({
-        id,
-        name,
-        email,
+        id, 
+        name, 
+        email, 
         phone
       });
       return reply.send(data);
@@ -44,7 +44,7 @@ export async function contactsRoutes(fastify: FastifyInstance) {
       reply.send(error)
     }
   });
-  fastify.delete<{ Params: { id: string } }>('/:id', async (req, reply) => {
+  fastify.delete<{Params: {id: string}}>('/:id', async (req, reply) => {
     const { id } = req.params
     try {
       const data = await contactUseCase.delete(id)
