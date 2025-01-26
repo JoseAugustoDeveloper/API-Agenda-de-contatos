@@ -1,3 +1,6 @@
+FALHA NO PROJETO
+PROJETO CANCELADO
+NOVO PROJETO SERÁ PUBLICADO
 # API de Agenda de Contatos
 
 Esta é a documentação de requisitos para a API de Agenda de Contatos. Esta API permite aos usuários gerenciar contatos, categorizá-los e realizar operações de CRUD.
