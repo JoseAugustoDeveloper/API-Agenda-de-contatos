@@ -13,7 +13,8 @@ export async function contactsRoutes(fastify: FastifyInstance) {
         email, 
         name, 
         phone, 
-        userEmail: emailUser
+        userEmail: typeof emailUser === 'string' ? emailUser : ''
+
        })
       return reply.send(data);
     } catch (error) {
@@ -23,7 +24,8 @@ export async function contactsRoutes(fastify: FastifyInstance) {
   fastify.get('/', async (req, reply) => {
     const emailUser = req.headers['email'];
     try{
-      const data = await contactUseCase.listAllContacts(emailUser);
+      const data = await contactUseCase.listAllContacts(typeof emailUser === 'string' ? emailUser : '');
+
       return reply.send(data);
     } catch (error){
       reply.send(error)
