@@ -4,7 +4,7 @@ import { userRoutes } from './routes/user.routes'
 import  {contactsRoutes} from './routes/contact.routes'
 const app: FastifyInstance = fastify({ logger: true });
 
-
+const port = process.env.PORT || 3100;
 app.register(cors, {
   origin: "*", // Permite todas as origens (ou especifique origens permitidas)
   methods: ["GET", "POST", "PUT", "DELETE"], // Métodos HTTP permitidos
@@ -19,7 +19,7 @@ app.register(contactsRoutes,{
 
 app.listen(
   {
-  port: 3100
+  port
   },
-() => console.log('Server is running on port 3100'),
+() => console.log(`Server is running on port ${port}`),
 );
